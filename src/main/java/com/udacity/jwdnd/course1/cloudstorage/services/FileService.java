@@ -7,10 +7,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.ByteArrayOutputStream;
-import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.Arrays;
 import java.util.List;
 
 @Service
@@ -27,13 +25,13 @@ public class FileService {
         return userMapper.getUser(userName).getId();
     }
 
-    public List<String> getAllFilesOfAUser(String userName) {
+    public List<String> getAllFiles(String userName) {
         return fileMapper.getAllFilesNamesOfAUser(getUserId(userName));
     }
 
     public boolean isFilePresent(String userName, String fileName) {
         boolean filePresent = false;
-        List<String> allFileNames = getAllFilesOfAUser(userName);
+        List<String> allFileNames = getAllFiles(userName);
         for(String fName : allFileNames) {
             if(fileName.equals(fName)) {
                 filePresent = true;
