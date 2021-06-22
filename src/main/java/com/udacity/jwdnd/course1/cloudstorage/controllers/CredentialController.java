@@ -40,7 +40,6 @@ public class CredentialController {
     @GetMapping("/delete-credential/{id}")
     public String deleteCredential(Authentication authentication,
                                    @PathVariable Integer id,
-                                   @ModelAttribute("credential") Credentials credential,
                                    Model model) {
         credentialService.deleteCredential(id);
         model.addAttribute("result","success");

@@ -41,8 +41,7 @@ public class NotesController {
     }
 
     @GetMapping("/delete-note/{id}")
-    public String deleteNote(Authentication authentication, @PathVariable Integer id,
-                             @ModelAttribute("note") Notes note, Model model) {
+    public String deleteNote(Authentication authentication, @PathVariable Integer id, Model model) {
         notesService.deleteNote(id);
         model.addAttribute("result","success");
         return "result";

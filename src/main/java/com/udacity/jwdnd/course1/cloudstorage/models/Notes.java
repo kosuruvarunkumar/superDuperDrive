@@ -13,6 +13,11 @@ public class Notes {
         this.userid = userid;
     }
 
+    public Notes(String title, String description) {
+        this.noteTitle = title;
+        this.notesDescription = description;
+    }
+
     public Integer getId() {
         return id;
     }

@@ -18,6 +18,12 @@ public class Credentials {
         this.userid = userid;
     }
 
+    public Credentials(String url, String userName, String password) {
+        this.url = url;
+        this.userName = userName;
+        this.password = password;
+    }
+
     public Integer getId() {
         return id;
     }

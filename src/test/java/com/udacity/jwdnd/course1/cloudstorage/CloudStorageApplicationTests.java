@@ -13,7 +13,7 @@ class CloudStorageApplicationTests {
 	@LocalServerPort
 	private int port;
 
-	private WebDriver driver;
+	protected WebDriver driver;
 
 	@BeforeAll
 	static void beforeAll() {
@@ -36,6 +36,23 @@ class CloudStorageApplicationTests {
 	public void getLoginPage() {
 		driver.get("http://localhost:" + this.port + "/login");
 		Assertions.assertEquals("Login", driver.getTitle());
+	}
+
+	protected HomePage signUpAndLogin() {
+		driver.get("http://localhost:" + this.port + "/signup");
+		SignupPage signupPage = new SignupPage(driver);
+		signupPage.setFirstName("Test");
+		signupPage.setLastName("Test");
+		signupPage.setUserName("Test");
+		signupPage.setPassword("Test");
+		signupPage.signUp();
+		driver.get("http://localhost:" + this.port + "/login");
+		LoginPage loginPage = new LoginPage(driver);
+		loginPage.setUserName("Test");
+		loginPage.setPassword("Test");
+		loginPage.login();
+
+		return new HomePage(driver);
 	}
 
 }
