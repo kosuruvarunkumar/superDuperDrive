@@ -38,21 +38,21 @@ class CloudStorageApplicationTests {
 		Assertions.assertEquals("Login", driver.getTitle());
 	}
 
-	protected HomePage signUpAndLogin() {
+	protected HPage signUpAndLogin() {
 		driver.get("http://localhost:" + this.port + "/signup");
-		SignupPage signupPage = new SignupPage(driver);
-		signupPage.setFirstName("Test");
-		signupPage.setLastName("Test");
-		signupPage.setUserName("Test");
-		signupPage.setPassword("Test");
-		signupPage.signUp();
+		SPage sPage = new SPage(driver);
+		sPage.setFirstName("Test");
+		sPage.setLastName("Test");
+		sPage.setUserName("Test");
+		sPage.setPassword("Test");
+		sPage.signUp();
 		driver.get("http://localhost:" + this.port + "/login");
-		LoginPage loginPage = new LoginPage(driver);
-		loginPage.setUserName("Test");
-		loginPage.setPassword("Test");
-		loginPage.login();
+		LPage lPage = new LPage(driver);
+		lPage.sUserName("Test");
+		lPage.sPassword("Test");
+		lPage.login();
 
-		return new HomePage(driver);
+		return new HPage(driver);
 	}
 
 }

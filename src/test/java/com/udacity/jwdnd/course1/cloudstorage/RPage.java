@@ -5,21 +5,20 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
-import org.openqa.selenium.support.ui.WebDriverWait;
 
-public class ResultPage {
+public class RPage {
 
-    private final JavascriptExecutor js;
+    private final JavascriptExecutor javascriptExecutor;
 
-    public ResultPage(WebDriver driver) {
+    public RPage(WebDriver driver) {
         PageFactory.initElements(driver, this);
-        js = (JavascriptExecutor) driver;
+        javascriptExecutor = (JavascriptExecutor) driver;
     }
 
     @FindBy(id = "a-success")
     private WebElement aResultSuccess;
 
     public void clickOk() {
-        js.executeScript("arguments[0].click();", aResultSuccess);
+        javascriptExecutor.executeScript("arguments[0].click();", aResultSuccess);
     }
 }

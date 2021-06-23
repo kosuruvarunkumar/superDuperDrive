@@ -9,16 +9,13 @@ import org.springframework.boot.web.server.LocalServerPort;
 
 import java.util.concurrent.TimeUnit;
 
-/**
- * Tests for User Signup, Login, and Unauthorized Access Restrictions.
- */
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 class UserTests {
 
     @LocalServerPort
     private int port;
 
-    private WebDriver driver;
+    private WebDriver webDriver;
 
     @BeforeAll
     static void beforeAll() {
@@ -27,60 +24,53 @@ class UserTests {
 
     @BeforeEach
     public void beforeEach() {
-        this.driver = new ChromeDriver();
+        this.webDriver = new ChromeDriver();
     }
 
     @AfterEach
     public void afterEach() {
-        if (this.driver != null) {
-            driver.quit();
+        if (this.webDriver != null) {
+            webDriver.quit();
         }
     }
 
-    /**
-     * Write a test that verifies that an unauthorized user can only access the login and signup pages.
-     */
     @Test
     public void testPageAccess() {
-        driver.get("http://localhost:" + this.port + "/login");
-        Assertions.assertEquals("Login", driver.getTitle());
+        webDriver.get("http://localhost:" + this.port + "/login");
+        Assertions.assertEquals("Login", webDriver.getTitle());
 
-        driver.get("http://localhost:" + this.port + "/signup");
-        Assertions.assertEquals("Sign Up", driver.getTitle());
+        webDriver.get("http://localhost:" + this.port + "/signup");
+        Assertions.assertEquals("Sign Up", webDriver.getTitle());
 
-        driver.get("http://localhost:" + this.port + "/home");
-        Assertions.assertEquals("Login", driver.getTitle());
+        webDriver.get("http://localhost:" + this.port + "/home");
+        Assertions.assertEquals("Login", webDriver.getTitle());
     }
 
-    /**
-     * Write a test that signs up a new user, logs in, verifies that the home page is accessible, logs out, and verifies
-     * that the home page is no longer accessible.
-     */
     @Test
-    public void testSignUpLoginLogout() {
-        driver.get("http://localhost:" + this.port + "/signup");
-        Assertions.assertEquals("Sign Up", driver.getTitle());
+    public void primaryUserActions() {
+        webDriver.get("http://localhost:" + this.port + "/signup");
+        Assertions.assertEquals("Sign Up", webDriver.getTitle());
 
-        SignupPage signupPage = new SignupPage(driver);
-        signupPage.setFirstName("Test");
-        signupPage.setLastName("Test");
-        signupPage.setUserName("Test");
-        signupPage.setPassword("Test");
-        signupPage.signUp();
+        SPage sPage = new SPage(webDriver);
+        sPage.setFirstName("Test");
+        sPage.setLastName("Test");
+        sPage.setUserName("Test");
+        sPage.setPassword("Test");
+        sPage.signUp();
 
-        driver.get("http://localhost:" + this.port + "/login");
-        Assertions.assertEquals("Login", driver.getTitle());
+        webDriver.get("http://localhost:" + this.port + "/login");
+        Assertions.assertEquals("Login", webDriver.getTitle());
 
-        LoginPage loginPage = new LoginPage(driver);
-        loginPage.setUserName("Test");
-        loginPage.setPassword("Test");
-        loginPage.login();
+        LPage lPage = new LPage(webDriver);
+        lPage.sUserName("Test");
+        lPage.sPassword("Test");
+        lPage.login();
 
-        HomePage homePage = new HomePage(driver);
-        homePage.logout();
+        HPage hPage = new HPage(webDriver);
+        hPage.logout();
 
-        driver.get("http://localhost:" + this.port + "/home");
-        driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
-        Assertions.assertEquals("Login", driver.getTitle());
+        webDriver.get("http://localhost:" + this.port + "/home");
+        webDriver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+        Assertions.assertEquals("Login", webDriver.getTitle());
     }
 }
