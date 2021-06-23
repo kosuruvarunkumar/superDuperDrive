@@ -4,6 +4,7 @@ import com.udacity.jwdnd.course1.cloudstorage.models.FileForm;
 import com.udacity.jwdnd.course1.cloudstorage.models.Files;
 import com.udacity.jwdnd.course1.cloudstorage.models.NoteForm;
 import com.udacity.jwdnd.course1.cloudstorage.services.FileService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
@@ -16,11 +17,12 @@ import java.util.List;
 
 @Controller
 public class FileController {
-    FileService fileService;
+    @Autowired
+    private FileService fileService;
 
-    public FileController(FileService fileService) {
-        this.fileService = fileService;
-    }
+//    public FileController(FileService fileService) {
+//        this.fileService = fileService;
+//    }
 
     @PostMapping("/files")
     public String addFile(@ModelAttribute("newFile")FileForm newFile,

@@ -3,6 +3,7 @@ package com.udacity.jwdnd.course1.cloudstorage.controllers;
 import com.udacity.jwdnd.course1.cloudstorage.models.CredentialForm;
 import com.udacity.jwdnd.course1.cloudstorage.models.Credentials;
 import com.udacity.jwdnd.course1.cloudstorage.services.CredentialService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -13,11 +14,12 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 @Controller
 public class CredentialController {
-    CredentialService credentialService;
+    @Autowired
+    private CredentialService credentialService;
 
-    public CredentialController(CredentialService credentialService) {
-        this.credentialService = credentialService;
-    }
+//    public CredentialController(CredentialService credentialService) {
+//        this.credentialService = credentialService;
+//    }
 
     @PostMapping("/credentials")
     public String addCredential(@ModelAttribute("newCredential") CredentialForm credential,

@@ -4,6 +4,7 @@ import com.udacity.jwdnd.course1.cloudstorage.models.FileForm;
 import com.udacity.jwdnd.course1.cloudstorage.models.NoteForm;
 import com.udacity.jwdnd.course1.cloudstorage.models.Notes;
 import com.udacity.jwdnd.course1.cloudstorage.services.NotesService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -14,7 +15,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 @Controller
 public class NotesController {
-    NotesService notesService;
+    @Autowired
+    private NotesService notesService;
 
     public NotesController(NotesService notesService) {
         this.notesService = notesService;
